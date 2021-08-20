@@ -1,0 +1,756 @@
+---
+title: "Exploratory Data Analysis on Worldwide Vaccine Data"
+output: html_document
+---
+
+## What is Exploratory Data Analysis ?
+  
+Exploratory Data Analysis refers to the critical process of performing initial investigations on data so as to discover patterns,to spot anomalies,to test hypothesis and to check assumptions with the help of summary statistics and graphical representations.
+
+We are performing EDA on the Worldwide Vaccine Data taken from the kaggle repository.
+
+## Importing the Dataset
+
+```{r}
+df<-read.csv("C:/Users/Kabir Anna/Desktop/Worldwide Vaccine Data.csv")
+head(df)
+```
+
+## The type of object can be ascertained using the class() command
+
+```{r}
+class(df)
+class(df$Country)
+class(df$Doses.administered.per.100.people)
+class(dimnames(df))
+```
+## Shows the top of the data and by default shows the first six rows
+```{r}
+head(df)
+```
+## Can elect to show a different numberof rows using the n= instruction like so:
+```{r}
+head(df,n=3)
+```
+## can also display the bottom of the data using the tail() command default shows the last six rows:
+```{r}
+tail(df)
+```
+## Can elect to show a differnet number of rows usin g the n= instruction like so:
+```{r}
+tail(df,n=3)
+```
+## Changing the NA or missing values to the  zero
+```{r}
+df1=df
+df1[is.na(df1)]=0
+head(df1)
+```
+## To get information about an Data frame and particular columns:
+```{r}
+summary(df)
+summary(df$Country)
+summary(df$Doses.administered.per.100.people)
+mean(df1$Doses.administered.per.100.people)
+mean(df1$Total.doses.administered)
+mean(df1$X..of.population.vaccinated)
+mean(df1$X..of.population.fully.vaccinated)
+sum(df1$Doses.administered.per.100.people)
+median(df1$Doses.administered.per.100.people)
+median(df1$Total.doses.administered)
+median(df1$X..of.population.vaccinated)
+median(df1$X..of.population.fully.vaccinated)
+```
+## shows the median absolute deviation
+```{r}
+median(df1$Doses.administered.per.100.people)
+median(df1$Total.doses.administered)
+median(df1$X..of.population.vaccinated)
+median(df1$X..of.population.fully.vaccinated)
+mode(df1$Country)
+mode(df1$Doses.administered.per.100.people)
+mode(df1$Total.doses.administered)
+var(df1$Doses.administered.per.100.people)
+var(df1$Total.doses.administered)
+var(df1$X..of.population.vaccinated)
+var(df1$X..of.population.fully.vaccinated)
+sd(df1$Doses.administered.per.100.people)
+quantile(df1$Total.doses.administered)
+```
+## Returns Tukey's five number summary (min,lower hinge,median,upper hinge,max) for the input data.
+```{r}
+fivenum(df$Doses.administered.per.100.people)
+cov(df1$Doses.administered.per.100.people,df1$Total.doses.administered)
+```
+## F Test to compare two variances
+```{r}
+var.test(df1$Doses.administered.per.100.people,df1$Total.doses.administered)
+```
+## str() command is useful to see the objective structure
+```{r}
+str(df)
+```
+## structure returns the given object with further attributes set
+```{r}
+head(structure(df))
+```
+## can also look at all the named objects you have at ince using the ls.str() command
+```{r}
+ls.str(df)
+```
+## can use the pattern instructin to narrow down your focus
+```{r}
+ls.str(pattern ='df')
+```
+## The most basic command that enables the viewing of the column or row is:
+```{r}
+names(df)
+row.names(df)
+colnames(df)
+dimnames(df)
+dim(df)
+nrow(df)
+ncol(df)
+sin(head(df1$Doses.administered.per.100.people))
+cos(head(df1$Doses.administered.per.100.people))
+factorial(head(df1$Doses.administered.per.100.people))
+abs(head(df1$Doses.administered.per.100.people))
+sqrt(head(df1$Doses.administered.per.100.people))
+tan(head(df1$Doses.administered.per.100.people))
+asin(head(df1$Doses.administered.per.100.people))
+```
+## Accessing the rows or columns
+```{r}
+head(df1[1])
+head(df1[1:4])
+head(df1[-1])
+head(df1[df1 > 7])
+head(df1[df1 < 5 | df1 > 10], n = 10)
+
+```
+## length() command used to determine the number of items in an object
+```{r}
+length(df)
+length(df$Doses.administered.per.100.people)
+length(df$Total.doses.administered)
+length(df$X..of.population.vaccinated)
+length(df$X..of.population.fully.vaccinated)
+```
+## To extract a particulafr column and particular row values
+```{r}
+head(df$Total.doses.administered)
+df$Total.doses.administered[3]
+df$Total.doses.administered[1:5]
+tdf = attach(df)
+tdf
+```
+## The max() and min() commands display the largest and smallest values in a numeric object
+```{r}
+max(df1$Doses.administered.per.100.people)
+max(df1$X..of.population.vaccinated)
+min(df1$Total.doses.administered)
+min(df1$X..of.population.vaccinated)
+```
+```{r}
+head(stack(df))
+```
+## Sorting default is ascending order
+```{r}
+head(sort(df$Total.doses.administered))
+head(sort(df$Doses.administered.per.100.people))
+
+```
+## can get an index using the order() command 
+```{r}
+head(order(df$Doses.administered.per.100.people))
+head(order(df$Total.doses.administered))
+```
+## the rank() command gives the rank number like ordet() in slightly di
+```{r}
+head(rank(df$Doses.administered.per.100.people),n=10)
+```
+## Displaying selected rows and columns
+```{r}
+df[3,1]
+
+```
+```{r}
+df[1]
+```
+## To convert from data frame from matrix  
+```{r}
+head(as.matrix(df))
+```
+## The cbind() and rbind() commands assmeble a matrix/data frames by columns or rows,from several other object.
+```{r}
+head(rbind(df))
+head(cbind(df))
+```
+## simple cumulative commands
+```{r}
+head(cumsum(df$Doses.administered.per.100.people))
+head(cummax(df$Doses.administered.per.100.people))
+head(cummin(df$Doses.administered.per.100.people))
+head(cumprod(df$Doses.administered.per.100.people))
+```
+## The table() command enablesyou to specify which columns of data yoy want to use to create your contigency table.
+```{r}
+table(df$Doses.administered.per.100.people)
+head(as.table(df$Doses.administered.per.100.people))
+```
+## The class() command can form the basis of a logical test by using the if() command in the following manner:
+```{r}
+if(class(df) == 'data.frame') TRUE else FALSE
+
+```
+## TO check whether the data extracted is data frame or not
+```{r}
+is.data.frame(df)
+is.table(df)
+```
+## The seq_along() command creates a simple index 
+```{r}
+seq_along(df)
+
+```
+## create a basic stem and leaf plot using the stem() command
+```{r}
+stem(df$Doses.administered.per.100.people)
+```
+## Now increase the number of bins used by adding a scale=2 instruction
+```{r}
+stem(df$Doses.administered.per.100.people, scale=2)
+```
+## stem with a conditional statement:
+```{r}
+with(df, stem(df$Doses.administered.per.100.people[df$X..of.population.vaccinated >=25 ]))
+
+```
+## Histogram plotting
+```{r}
+hist(df$Doses.administered.per.100.people)
+hist(df$Total.doses.administered)
+hist(df$X..of.population.vaccinated)
+hist(df$X..of.population.fully.vaccinated)
+hist(df$Doses.administered.per.100.people, col = 'lightblue', xlab = 'Doses.administered.per.100.people', ylim = c(0, 0.1), freq = FALSE)
+
+```
+## Have seen in drawing a histogram with the hist() command that you can use freq= FALSE to force the y-axis to display  the densiy rather than the frequency of the data.You can also call on the density function directly via the density() command.
+```{r}
+density(df1$Doses.administered.per.100.people)
+
+```
+## using the density function to draw a graph
+```{r}
+plot(density(df1$Doses.administered.per.100.people))
+plot(density(df1$Total.doses.administered))
+plot(density(df1$X..of.population.vaccinated))
+plot(density(df1$X..of.population.fully.vaccinated))
+```
+```{r}
+hist(df1$Doses.administered.per.100.people, freq=F)
+lines(density(df1$Doses.administered.per.100.people),lty=2)
+lines(density(df1$Doses.administered.per.100.people, k='rectangular'))
+```
+## Random number and sampling
+```{r}
+sample(df$Doses.administered.per.100.people,size=4)
+sample(df$Doses.administered.per.100.people,size=4,replace = TRUE)
+sample(df1$Doses.administered.per.100.people[df1$Doses.administered.per.100.people<5.0])
+sample(df1$Doses.administered.per.100.people[df1$Doses.administered.per.100.people>40.0])
+```
+## Generates n random numbers from the normal distribution with mean of 0 and standard deviation of 1
+```{r}
+head(rnorm(df$Doses.administered.per.100.people, mean=0 ,sd=1))
+```
+## Returns the probability for the quantile q
+```{r}
+head(pnorm(df1$Doses.administered.per.100.people),mean=0 ,sd=1)
+```
+
+## returns the quantile for a given probabailty p
+```{r}
+head(qnorm(df1$Doses.administered.per.100.people, mean=0 ,sd=1))
+```
+## Gives the density function for values x
+```{r}
+head(dnorm(df1$Doses.administered.per.100.people, mean = 0, sd = 1))
+
+```
+## Quantile-Qunatile plot
+```{r}
+qqnorm(df$Doses.administered.per.100.people)
+qqnorm(df$Total.doses.administered)
+
+qqnorm(df$Doses.administered.per.100.people,main='QQ plot of example data',xlab='Theoretical',ylab='Quantiles for data')
+qqline(df$Doses.administered.per.100.people,lwd=2,lty=2)
+```
+## can also plot one distribution against another as a quantile-quatile plot using the qqplot() command
+```{r}
+qqplot(df$Doses.administered.per.100.people, df$Total.doses.administered)
+
+```
+## would be useful to draw a straight line on your qqplot() and you can do that using the abline() command. This command uses the properties of a straight line (that is, y = a + bx) to produce a line on an existing plot. The general form of the command is: abline(a = intercept, b = slopelm(), which carries out linear modeling. This command determines the line of best fit between the x and y values in your qqp object.
+```{r}
+qqp=qqplot(df$Doses.administered.per.100.people,rnorm(50,5,2))
+abline(lm(qqp$y ~ qqp$x))
+```
+## The basic method of applying a t-test is to compare two vectors of numeric data
+```{r}
+t.test(df1$Doses.administered.per.100.people, df1$Total.doses.administered)
+
+```
+## can override the default and use the classic t-test by adding the var.equal = TRUE instruction, which forces the command to assume that the variance of the two samples is equal.
+```{r}
+t.test(df$Doses.administered.per.100.people, df$Total.doses.administered, var.equal = TRUE)
+```
+## can also carry out a one-sample t-test. In this version you supply the name of a single vector and the mean to compare it to (this defaults to 0):
+```{r}
+t.test(df$Doses.administered.per.100.people, mu = 5)
+```
+## Using Directional Hypotheses
+```{r}
+t.test(df$Doses.administered.per.100.people, mu = 5, alternative = 'greater')
+```
+## Two-Sample U-Test
+```{r}
+wilcox.test(df$Doses.administered.per.100.people, df$Total.doses.administered)
+```
+## Carries out a basic correlation between x and y . If x is a matrix or data frame, y can be omitted
+```{r}
+cor(df1$Doses.administered.per.100.people, df1$Total.doses.administered)
+```
+## Determines covariance between x and y . If x is a matrix or data frame, y can be omitted
+```{r}
+x = cov(df1$Doses.administered.per.100.people, df1$Total.doses.administered)
+x
+```
+## The cov2cor() command is used to determine the correlation from a matrix of covariance in the following example:
+```{r}
+v = as.matrix(x)
+cov2cor(v)
+```
+## Significance Testing in Correlation Tests
+```{r}
+cor.test(df1$Doses.administered.per.100.people, df1$Total.doses.administered)
+```
+## Chi-squared tests of association can be carried out using the chisq.test() command.
+```{r}
+chisq.test(df1$Doses.administered.per.100.people)
+```
+## Data visulaization using the Basic Boxplot
+```{r}
+boxplot(df$Doses.administered.per.100.people)
+boxplot(df$Total.doses.administered)
+boxplot(df$Doses.administered.per.100.people, df$X..of.population.vaccinated)
+boxplot(df$Doses.administered.per.100.people ~ df$X..of.population.vaccinated,data=df)
+```
+```{r}
+temp1=head(df)
+temp1
+boxplot(temp1$Doses.administered.per.100.people ~ temp1$Country,data=temp1)
+
+
+```
+## Customizing Boxplots
+```{r}
+boxplot(df$Doses.administered.per.100.people, df$X..of.population.vaccinated, names = c('Doses.administered.per.100.people', 'X..of.population.vaccinated'))
+title(xlab = 'Variable', ylab = 'Value')
+```
+## horizontal boxplot
+```{r}
+boxplot(df$Doses.administered.per.100.people, horizontal = T)
+title(xlab = 'Doses.administered.per.100.people')
+```
+# Scatter Plots
+##Basic Scatter Plots
+```{r}
+plot(df$Doses.administered.per.100.people, df$X..of.population.vaccinated)
+with(df, plot(Doses.administered.per.100.people, X..of.population.vaccinated))
+plot(df$Doses.administered.per.100.people, df$X..of.population.vaccinated,pch=25)
+
+```
+
+```{r}
+attach(df)
+plot(Doses.administered.per.100.people, X..of.population.vaccinated)
+detach(df)
+```
+## Adding Axis Labels
+```{r}
+plot(df$Doses.administered.per.100.people, df$X..of.population.vaccinated,xlab = 'Doses.administered.per.100.people', ylab = ' X..of.population.vaccinated')
+```
+## Plotting Symbols
+```{r}
+plot(df$Doses.administered.per.100.people, df$X..of.population.vaccinated,pch = "+")
+```
+## Setting Axis Limits
+```{r}
+plot(df$Doses.administered.per.100.people, df$Doses.administered.per.100.people,xlab = 'Doses.administered.per.100.people', ylab = ' X..of.population.vaccinated',pch = 18,col = 'gray50', xlim = c(0, 50), ylim = c(0, 50))
+```
+## combine the previous plot() command with the preceding abline() command
+```{r}
+plot(df$Doses.administered.per.100.people, df$Doses.administered.per.100.people,xlab = 'Doses.administered.per.100.people', ylab = ' X..of.population.vaccinated',pch = 18,col = 'gray50', xlim = c(0, 50), ylim = c(0, 50))
+abline(lm(Doses.administered.per.100.people ~ X..of.population.vaccinated , data = df), lty = 'dotted', lwd = 2, col = 'gray50')
+```
+## scatter plot using the ggplot.
+```{r}
+library(ggplot2)
+ggplot(df1, aes(x = Doses.administered.per.100.people , y = X..of.population.vaccinated)) +geom_point()
+ggplot(data = NULL, aes(x = df1$Doses.administered.per.100.people, y = df1$X..of.population.vaccinated))+geom_point()
+```
+## Cleveland Dot charts
+```{r}
+dotchart(df$Doses.administered.per.100.people)
+
+```
+## Line plot
+```{r}
+plot(df1$Doses.administered.per.100.people, type = 'l' )
+plot(df1$Total.doses.administered, type = 'b')
+```
+## Cleveland Dot Charts
+```{r}
+dotchart(df$Doses.administered.per.100.people)
+```
+## Bar plot
+```{r}
+barplot(df$Doses.administered.per.100.people)
+title(xlab = 'country',ylab = 'Doses.administered.per.100.people')
+box()
+```
+## table() used to get the column’s diff level(type) counts
+```{r}
+table(df$Doses.administered.per.100.people)
+
+barplot(df$Doses.administered.per.100.people, horiz = T)
+title(xlab = 'country', ylab = 'Doses.administered.per.100.people')
+box()
+
+
+```
+## the analysis of variance using the aov() command
+```{r}
+temp.aov = na.omit(aov(df1$Doses.administered.per.100.people ~ df1$Total.doses.administered, data = df1))
+temp.aov
+```
+## To see the classic ANOVA table of results you need to use the summary() command like so
+```{r}
+summary(temp.aov)
+```
+
+```{r}
+factor(df$Doses.administered.per.100.people)
+
+```
+## creating new testCol/testRow for addition as a new column/row to the df object (using rep() command)
+```{r}
+testCol = c(rep(df$Doses.administered.per.100.people - df$X..of.population.vaccinated, length(df)))
+head(testCol)
+
+testRow = c('ind', 1000, 40000, 30, 18)
+testRow
+```
+## Adding Rows or Columns
+```{r}
+test = data.frame(df, testCol)
+head(test)
+
+test = df
+test['testRow',] = testRow
+tail(test)
+
+test = df
+test["Test",] = NA
+tail(test)
+```
+## Extracting two(2) columns from df
+```{r}
+x = df[ , 2:4]
+head(x)
+```
+## Simple Column and Row Summaries
+```{r}
+colMeans(x)
+rowMeans(x)
+colSums(x)
+rowSums(x)
+```
+## The apply() command to apply a function over all the rows or columns of a data frame (or matrix)
+```{r}
+apply(df1[ , 2:3], 2, mean)
+apply(df1[ , 2:3], 1, mean)
+apply(df1[ , 2:3], 2, median)
+apply(df1[ , 2:3], 2, var)
+```
+## Using tapply() to Summarize Using a Grouping Variable
+```{r}
+tapply(df1$Doses.administered.per.100.people, df1$Country, FUN = mean)
+tapply(df1$Doses.administered.per.100.people, df1$Total.doses.administered, FUN = var)
+tapply(df1$Doses.administered.per.100.people, df1$X..of.population.vaccinated, FUN = mean)
+tapply(df1$Doses.administered.per.100.people, df1$X..of.population.fully.vaccinated, FUN = mean)
+tapply(df1$X..of.population.fully.vaccinated, df1$X..of.population.vaccinated, FUN = mean)
+tapply(df1$Total.doses.administered, df1$Total.doses.administered, FUN = mean)
+```
+## The aggregate() command enables you to compute summary statistics for subsets of a data frame or matrix; the result comes out as a single matrix rather than an array item, even with multiple grouping factors
+```{r}
+aggregate(df[ , 2:4], by = list(df$Country), FUN = mean)
+aggregate(df[ , 2:4], by = list(df$Doses.administered.per.100.people), FUN = mean)
+aggregate(df[ , 2:4], by = list(df$Total.doses.administered), FUN = mean)
+aggregate(df[ , 2:4], by = list(df$X..of.population.vaccinated), FUN = mean)
+aggregate(df[ , 2:4], by = list(df$X..of.population.fully.vaccinated), FUN = mean)
+```
+## uding cbind()
+```{r}
+aggregate(cbind(df$Doses.administered.per.100.people, df$Total.doses.administered), data = df, by = list(df$Country), FUN = mean)
+aggregate(df$X..of.population.fully.vaccinated ~ df$Country, data = df, FUN = mean)
+aggregate(df$Total.doses.administered ~ df$Country * df$X..of.population.vaccinated, data = df, FUN = mean)
+```
+## The na.omit() command strips out unwanted NA items from vectors and data frames.
+```{r}
+head(na.omit(df))
+```
+
+## ls and objects return a vector of character strings giving the names of the objects in the specified environment
+```{r}
+objects(df)
+ls(df)
+```
+## Simple lineaR RegReSSion
+```{r}
+dflm = lm(Doses.administered.per.100.people ~ X..of.population.vaccinated, data = df)
+dflm
+
+cor.test(~ df$Doses.administered.per.100.people + df$X..of.population.vaccinated, data = df)
+```
+## Linear Model Results Objects can extract the coefficients using the coef() command
+```{r}
+coef(dflm)
+```
+## can obtain confidence intervals on these coefficients using the confint() command
+```{r}
+confint(dflm)
+```
+## Fitted Values
+```{r}
+head(fitted(dflm))
+```
+## Residuals
+```{r}
+head(residuals(dflm))
+```
+## Formula
+```{r}
+formula(dflm)
+dflm$call
+formula(df)
+df.m = apply(df1[,2:4], 2, mean)
+df.m
+df.sd = apply(df1[ , 2:4], 2, sd)
+df.sd
+df.s = apply(df1[,2:4], 2, sum)
+df.s
+df.1 = df.s/df.m
+df.1
+df.se = df.sd / sqrt(df.1)
+df.se
+df.m + df.se
+max(df.m + df.se)
+df.max = round(max(df.m + df.se) + 0.5, 0)
+df.max
+bp = barplot(df.m, ylim = c(0, df.max))
+bp
+segments(bp, df.m + df.se, bp, df.m - df.se)
+segments(bp - 0.2, df.m - df.se, bp + 0.2, df.m - df.se)
+box()
+title(xlab = 'Type of test', ylab = 'Scores')
+```
+## Creating Mathematical Expressions
+```{r}
+plot(1:10, 1:10, type = 'n')
+opt = par(cex = 1.5)
+text(1, 1, expression(hat(x)))
+text(2, 2, expression(alpha==x))
+text(3, 3, expression(beta==y))
+text(4, 4, expression(frac(x, y)))
+text(5, 5, expression(sum(x)))
+text(6, 6, expression(sum(x^2)))
+text(7, 7, expression(bar(x) == sum(frac(x[i], n), i==1, n)))
+text(8, 8, expression(sqrt(x)))
+text(9, 9, expression(sqrt(x, 3)))
+```
+## pie chart
+```{r}
+pie(df1$Doses.administered.per.100.people)
+```
+## Chaining Functions Together with %>%, the Pipe Operator
+```{r}
+library(dplyr)
+library(MASS)
+df %>% filter(Doses.administered.per.100.people <=50) %>%summary()
+
+```
+## Adding a Column to a Data Frame
+```{r}
+temp= df %>% mutate(newcol = NA)
+head(temp)
+```
+##plotting a graph using the filter
+```{r}
+temp = df1 %>% filter(df1$Country== "India")
+temp
+plot(temp$Doses.administered.per.100.people, temp$Total.doses.administered, pch = 25)
+```
+## pairing command
+```{r}
+pairs(~ Doses.administered.per.100.people + Total.doses.administered , data = df1)
+pairs(~ X..of.population.fully.vaccinated  + X..of.population.vaccinated, data = df1)
+
+```
+## arrange command
+```{r}
+df %>% arrange(Doses.administered.per.100.people ,Doses.administered.per.100.people)
+df %>% arrange(X..of.population.fully.vaccinated, Total.doses.administered)
+df %>% arrange(desc(Doses.administered.per.100.people))
+```
+## slice command
+```{r}
+df %>% slice(5:10)
+df %>% slice_head(n = 3)
+df %>% slice_tail(n = 3)
+df %>% slice_sample(n = 5)
+```
+## changing the names of the columns
+```{r}
+df2=head(df1)
+df2%>% rename(new_Doses.administered.per.100.people= Doses.administered.per.100.people)
+df2%>%rename(new_Country=Country)
+```
+## adding new column using mutate
+```{r}
+df2 %>% mutate(Doses.administered.per.100.people_new = Doses.administered.per.100.people/10)
+```
+## 
+```{r}
+df %>% transmute(Doses.administered.per.100.people_new = Doses.administered.per.100.people/10)
+```
+
+```{r}
+df %>% relocate(Doses.administered.per.100.people, .before = Doses.administered.per.100.people)
+```
+## 
+```{r}
+temp22=head(df1,n=15)
+plot(temp22$Doses.administered.per.100.people ~ temp22$X..of.population.vaccinated, data = temp22, pch = 21, ylab = 'X..of.population.vaccinated', xlab = 'Doses.administered.per.100.people')
+points(temp22$Doses.administered.per.100.people ~ temp22$X..of.population.vaccinated, data = temp22, pch = 19)
+legend(x = 'topright', legend = c('Doses.administered.per.100.people', 'X..of.population.vaccinated'), pch = c(21,19), bty = 'n')
+
+```
+
+```{r}
+curve(sin, -pi*2, pi*2, lty = 2, lwd = 1.5, ylab = 'Function', ylim = c(-1,1.5))
+curve(cos, -pi*2, pi*2, lty = 3, lwd = 1, add = TRUE)
+legend(x = 'topright', legend = c('Sine', 'Cosine'), lty = c(2, 3), 
+lwd = c(1.5, 1), bty = 'n')
+title(main = 'Sine and Cosine functions')
+```
+
+```{r}
+plot(temp22$Doses.administered.per.100.people~ temp22$X..of.population.vaccinated, data = temp22, main = 'plot 1')
+```
+
+
+```{r}
+plot(temp22$Doses.administered.per.100.people ~ temp22$X..of.population.vaccinated, data = df, main = 'plot 2')
+```
+Simple customized Functions with multiple lines
+```{r}
+cummeadian = function(x) {
+tmp = seq_along(x)
+for(i in 1:length(tmp)) tmp[i] = median(x[1:i])
+print(x)}
+
+cummeadian(temp22$Doses.administered.per.100.people)
+```
+## One-Line Functions
+```{r}
+log2 = function(x) log(x, base = 2)
+log2
+log2(temp22$Doses.administered.per.100.people)
+```
+
+## Using Default Values in Functions
+```{r}
+manning = function(radius, gradient, coef=0.1125) (radius^(2/3)*gradient^0.5/coef)
+manning(radius = 1, gradient = 1/500)
+nlevels(df)
+```
+## Chaining Functions Together with %>%, the Pipe Operator
+
+```{r}
+library(dplyr)
+df %>% filter(df1$Total.doses.administered >= 40) %>% summary()
+```
+## Without the pipe operator, the preceding code would be written like this:
+```{r}
+summary(filter(df1, X..of.population.fully.vaccinated >= 20))
+```
+## Creating a Line Graph
+```{r}
+plot(temp22$Doses.administered.per.100.people, type = 'l')
+```
+
+## With ggplot2
+```{r}
+ggplot(temp22, aes(x =Doses.administered.per.100.people , y = X..of.population.vaccinated)) + geom_line()
+```
+## Creating a Bar Graph
+```{r}
+ggplot(temp22, aes(x =Doses.administered.per.100.people, y = X..of.population.vaccinated)) + geom_col()
+```
+
+## Grouping Bars Together
+
+```{r}
+ggplot(df1, aes(x = Doses.administered.per.100.people, y =X..of.population.vaccinated , fill =  X..of.population.fully.vaccinated)) + geom_col(position = "dodge")
+```
+## Making a Cleveland Dot Plot
+```{r}
+ggplot(df1, aes(x = Doses.administered.per.100.people, y = X..of.population.vaccinated)) + geom_point()
+```
+
+
+```{r}
+ggplot(df1, aes(x = Doses.administered.per.100.people, y =X..of.population.vaccinated )) +
+ geom_point(size = 3) + # Use a larger dot
+ theme_bw() +
+ theme(
+ panel.grid.major.x = element_blank(),
+ panel.grid.minor.x = element_blank(),
+ panel.grid.major.y = element_line(colour = "grey60", linetype = "dashed")
+ )
+```
+```{r}
+ggplot(df1, aes(x = Doses.administered.per.100.people, y =X..of.population.vaccinated )) +
+geom_segment(aes(yend = X..of.population.vaccinated), xend = 0, colour = "grey50") + 
+  geom_point(size = 2) 
+```
+
+```{r}
+plot(df)
+```
+```{r}
+ggplot(df1, aes(x = Doses.administered.per.100.people, y = Total.doses.administered)) +
+ geom_point(size = 1.5)
+```
+
+
+
+
+
+
+
+
+
+
+
